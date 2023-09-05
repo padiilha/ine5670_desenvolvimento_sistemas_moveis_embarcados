@@ -1,0 +1,47 @@
+[
+  {
+    "id": 1,
+    "nome": "Beto Carreiro World",
+    "cidade": "Penha",
+    "uf": "SC",
+    "site": "https://www.betocarrero.com.br/",
+    "instagram": "https://www.instagram.com/betocarrero/",
+    "video": "https://www.youtube.com/watch?v=d1me-MamdEE"
+  },
+  {
+    "id": 2,
+    "nome": "Hopi Hari",
+    "cidade": "Vinhedo",
+    "uf": "SP",
+    "site": "https://www.hopihrari.com.br",
+    "intagram": "https://www.instagram.com/hopihari/",
+    "video": "https://www.youtube.com/watch?v=wAChwCP-_XA"
+  },
+  {
+    "id": 3,
+    "nome": "Snowland",
+    "cidade": "Gramado",
+    "uf": "RS",
+    "site": "https://www.snowland.com.br/",
+    "instagram": "https://www.instagram.com/snowlandgramado/",
+    "video": "https://www.youtube.com/watch?v=z6jAEf71vtQ"
+  },
+  {
+    "id": 4,
+    "nome": "Beach Park",
+    "cidade": "Fortaleza",
+    "uf": "CE",
+    "site": "https://www.beachpark.com.br/",
+    "instagram": "https://www.instagram.com/beachpark/",
+    "video": "https://www.youtube.com/watch?v=zN-TwrRvBJg"
+  },
+  {
+    "id": 5,
+    "nome": "Thermas dos Laranjais",
+    "cidade": "Olímpia",
+    "uf": "SP",
+    "site": "https://www.termas.com.br/",
+    "instagram": "https://www.instagram.com/thermasdoslaranjaisoficial/",
+    "video": "https://www.youtube.com/watch?v=B9Gv5A6RECg"
+  }
+]
