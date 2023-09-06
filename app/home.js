@@ -1,37 +1,54 @@
 import { Stack, useRouter } from "expo-router";
-import {
-  FlatList,
-  SafeAreaView,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
-} from "react-native";
+import { useEffect, useState } from "react";
+import { FlatList, SafeAreaView, StyleSheet, Text, View } from "react-native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import ParqueItem from "../components/ParqueItem";
+import ParqueFavorito from "../components/ParqueFavorito";
 
-const detalhesParque = require("../data/parkDetails.json");
+const parqueDetalhes = require("../data/parques.json");
 
 const Home = () => {
   const router = useRouter();
+  const [fetchedIds, setFetchedIds] = useState();
 
   const handleCardPress = (item) => {
-    router.push(`/ParkDetails/${item.id}`);
+    router.push(`/parqueDetalhe/${item.id}`);
   };
 
-  const getParques = detalhesParque
+  const getParques = parqueDetalhes
     .slice()
     .sort((a, b) => a.nome.localeCompare(b.nome));
 
-  const renderItem = ({ item }) => (
-    <TouchableOpacity
-      onPress={() => navigation.navigate("parkDetails", { themePark: item })}
-      style={styles.itemParque}
-    >
-      <Text style={styles.nomeParque}>{item.nome}</Text>
-      <Text style={styles.localParque}>
-        {item.cidade}, {item.uf}
-      </Text>
-    </TouchableOpacity>
-  );
+  useEffect(() => {
+    getFavoritos();
+  }, []);
+
+  const getFavoritos = async () => {
+    try {
+      const ids = await AsyncStorage.getAllKeys();
+      setFetchedIds(ids);
+    } catch (error) {
+      console.error("Erro ao retornar os ids:", error);
+    }
+  };
+
+  const saveFavorito = async (id) => {
+    try {
+      await AsyncStorage.setItem(JSON.stringify(id), JSON.stringify(id));
+      getFavoritos();
+    } catch (error) {
+      console.error("Erro ao guardar id:");
+    }
+  };
+
+  const removeFavorito = async (id) => {
+    try {
+      await AsyncStorage.removeItem(JSON.stringify(id));
+      getFavoritos();
+    } catch (error) {
+      console.error("Erro ao remover id:");
+    }
+  };
 
   return (
     <SafeAreaView>
@@ -53,23 +70,19 @@ const Home = () => {
         <FlatList
           data={getParques}
           keyExtractor={(item) => item?.id}
-          renderItem={renderItem}
+          renderItem={({ item }) => (
+            <ParqueItem
+              parque={item}
+              handleCardPress={handleCardPress}
+              saveFavorito={saveFavorito}
+              removeFavorito={removeFavorito}
+              fetchedIds={fetchedIds}
+            />
+          )}
         />
       </View>
     </SafeAreaView>
   );
 };
-
-const styles = StyleSheet.create({
-  nomeParque: {
-    fontSize: 24,
-  },
-  localParque: {
-    fontSize: 16,
-  },
-  itemParque: {
-    paddingVertical: 8,
-  },
-});
 
 export default Home;
